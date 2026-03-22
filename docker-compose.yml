@@ -1,0 +1,27 @@
+services:
+  neox-consensus:
+    build: .
+    container_name: neox-consensus
+    restart: unless-stopped
+    volumes:
+      - ./node-data:/data          # 持久化链数据 + 钱包
+    ports:
+      - "30303:30303"              # P2P TCP
+      - "30303:30303/udp"          # P2P UDP
+      - "8545:8545"                # HTTP RPC
+      - "8546:8546"                # WebSocket
+    environment:
+      # - WALLET_ADDRESS=0xYourAddress  # 不设则自动从keystore文件名提取
+      - EXTERNAL_IP=0.0.0.0       # 改成你的公网IP
+      - MAX_PEERS=50
+      - GC_MODE=archive
+      - VERBOSITY=3
+    # 共识节点推荐配置
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 32G
+        reservations:
+          cpus: '2'
+          memory: 16G
