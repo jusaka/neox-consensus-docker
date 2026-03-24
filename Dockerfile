@@ -5,7 +5,7 @@ RUN git clone --depth 1 --branch v0.5.3 https://github.com/bane-labs/go-ethereum
 RUN go mod download && go run build/ci.go install -static ./cmd/geth
 
 FROM alpine:latest
-RUN apk add --no-cache ca-certificates bash
+RUN apk add --no-cache ca-certificates bash wget
 COPY --from=builder /build/build/bin/geth /usr/local/bin/geth
 COPY --from=builder /build/config/genesis_mainnet.json /genesis.json
 COPY entrypoint.sh /entrypoint.sh
