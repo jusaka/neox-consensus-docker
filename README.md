@@ -30,15 +30,17 @@ docker compose logs -f
 node-data/
 ├── keystore/              # 钱包文件（geth格式）
 ├── password.txt           # 解锁密码
-├── r1cs/                  # (可选) ZK-DKG R1CS，从 github.com/bane-labs/mpc 下载
-│   ├── one_message.ccs
-│   ├── two_message.ccs
-│   └── seven_message.ccs
-└── pk/                    # (可选) ZK-DKG Proving Key
-    ├── one_message.pk
-    ├── two_message.pk
-    └── seven_message.pk
+├── r1cs/                  # ZK-DKG R1CS（首次启动自动下载，~719MB）
+│   ├── one_message.ccs    # 79 MB
+│   ├── two_message.ccs    # 145 MB
+│   └── seven_message.ccs  # 495 MB
+└── pk/                    # ZK-DKG Proving Key（首次启动自动下载，~2.76GB）
+    ├── one_message.pk     # 666 MB
+    ├── two_message.pk     # 777 MB
+    └── seven_message.pk   # 1.32 GB
 ```
+
+> **注意：** ZK-DKG 文件共约 3.48GB，首次启动会从 [bane-labs/mpc](https://github.com/bane-labs/mpc) 的 Azure Blob Storage 自动下载。下载完成后持久化在 `node-data/` 中，后续重启秒起。
 
 ## 环境变量
 
